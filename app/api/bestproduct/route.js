@@ -1,12 +1,15 @@
-import { connectDB } from '@/lib/mongodb';
-import Product from '@/models/Product';
+// /app/api/bestproduct/route.js or /pages/api/bestproduct.js
 
-export async function GET() {
+import { connectDB } from '@/lib/mongodb';
+import bestproduct from '@/model/bestproduct';
+
+export async function GET(req, res) {
+    await connectDB();
+
     try {
-        await connectDB();
-        const products = await Product.find({});
+        const products = await bestproduct.find({}).lean({ virtuals: true }); // <- important
         return Response.json(products);
     } catch (error) {
-        return new Response('Error fetching products', { status: 500 });
+        return Response.json({ error: 'Failed to fetch products' }, { status: 500 });
     }
 }
