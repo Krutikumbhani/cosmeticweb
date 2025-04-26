@@ -28,10 +28,10 @@ export default function ProductCard() {
         bestproduct();
     }, []);
 
-    // if (loading) {
-    //     return <div className="text-black text-2xl text-center">Loading...</div>;
-    // }
-
+    const handleAddToCart = (item) => {
+        console.log("🛒 Adding to cart:", item);
+        // You can integrate your real cart logic here later
+    };
     return (
         <div className="py-10">
             <div className="container mx-auto">
@@ -58,11 +58,16 @@ export default function ProductCard() {
                                             <Link href="/">
                                                 <div className="relative w-full h-64">
                                                     <Image
-                                                        src={item.image}
+                                                        // src={item.image}
+                                                        src={item.image.startsWith('/') ? item.image : `/${item.image}`}
                                                         alt={item.title || 'product image'}
                                                         fill
                                                         className="object-cover"
                                                     />
+
+                                                    <button className="absolute top-2 right-2 bg-white text-black px-3 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition">
+                                                        Quick View
+                                                    </button>
                                                 </div>
                                                 <div className="p-4">
                                                     <h3 className="text-lg font-semibold text-gray-800">{item.title}</h3>
@@ -78,7 +83,7 @@ export default function ProductCard() {
                                                             ({item.discount}% OFF)
                                                         </span>
                                                     </div>
-                                                    <button className="mt-4 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 text-sm w-full">
+                                                    <button onClick={() => handleAddToCart(item)} className="mt-4 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 text-sm w-full">
                                                         Add to Cart
                                                     </button>
                                                 </div>

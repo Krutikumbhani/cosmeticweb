@@ -14,6 +14,7 @@ export default function Banner() {
     const fetchSlides = async () => {
       const res = await fetch('/api/slider');
       const data = await res.json();
+      console.log("Slider data:", data);
       setSlides(data);
     };
     fetchSlides();
@@ -26,7 +27,8 @@ export default function Banner() {
         modules={[Navigation, Pagination, Autoplay]}
         navigation
         pagination={{ clickable: true }}
-        autoplay={{ delay: 5000 }}
+        autoplay={{ delay: 0 }}
+        speed={3000}
         loop
         className="w-full h-full"
       >
@@ -34,7 +36,7 @@ export default function Banner() {
           <SwiperSlide key={slide._id}>
             <div className="relative w-full h-[600px]">
               <Image
-                src={slide.image}
+                src={slide.image.startsWith('/') ? slide.image : `/${slide.image}`}
                 alt={slide.title}
                 fill
                 className="object-cover"

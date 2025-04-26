@@ -5,4 +5,4 @@ const BrandSchema = new mongoose.Schema({
     brandName: String
 });
 
-export default mongoose.models.Brand || mongoose.model('Brand', BrandSchema);
+export default mongoose.models.Brand || mongoose.model('Brand', BrandSchema, 'Brand');
